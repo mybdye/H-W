@@ -9,7 +9,7 @@ def recaptcha():
     global body
     print('- recaptcha')
     try:
-        sb.open(urlLogin, timeout=30)
+        sb.open(urlLogin)
         sb.assert_text('Login', 'h2', timeout=20)
         print('- access')
     except Exception as e:
@@ -22,7 +22,7 @@ def recaptcha():
         except:
             print('g!')
             pass
-        sb.open(urlLogin, timeout=30)
+        sb.open(urlLogin)
         sb.assert_text('Login', 'h2', timeout=20)
         print('- access')
     #   reCAPTCHA
@@ -301,7 +301,7 @@ urlSpeech = url_decode(
 # 关闭证书验证
 ssl._create_default_https_context = ssl._create_unverified_context
 
-with SB(uc=True, pls="none") as sb:  # By default, browser="chrome" if not set.
+with SB(uc=True, timeout_multiplier=120) as sb:  # By default, browser="chrome" if not set.
     print('- 🚀 loading...')
     if urlBase != '' and username != '' and password != '':
         try:
