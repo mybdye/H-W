@@ -44,9 +44,9 @@ def recaptcha():
         print('- switch to frame image/audio')
         sb.click("button#recaptcha-audio-button")
         try:
-            sb.assert_element('[href*="https://www.recaptcha.net/recaptcha/api2/payload/audio.mp3?"]')
+            sb.assert_element('[href*="https://www.recaptcha.net/recaptcha/api2/payload/audio.mp3?"]', timeout=20)
             print('- normal')
-            src = sb.find_elements('[href*="https://www.recaptcha.net/recaptcha/api2/payload/audio.mp3?"]'
+            src = sb.find_elements('[href*="https://www.recaptcha.net/recaptcha/api2/payload/audio.mp3?"]', timeout=20
                                    )[0].get_attribute("href")
             print('- audio src:', src)
             # download audio file
@@ -54,7 +54,7 @@ def recaptcha():
             mp3_to_wav()
             text = speech_to_text()
             sb.switch_to_window(0)
-            sb.assert_text('Login', 'h2')
+            sb.assert_text('Login', 'h2', timeout=20)
             sb.switch_to_default_content()  # Exit all iframes
             sb.sleep(1)
             sb.switch_to_frame('[src*="https://www.recaptcha.net/recaptcha/api2/bframe?"]')
@@ -73,7 +73,7 @@ def recaptcha():
             sb.sleep(1)
             sb.switch_to_frame('[src*="https://www.recaptcha.net/recaptcha/api2/bframe?"]')
             msgBlock = '[class*="rc-doscaptcha-body-text"]'
-            if sb.assert_element(msgBlock):
+            if sb.assert_element(msgBlock, timeout=20):
                 body = sb.get_text(msgBlock)
                 print('- 💣 maybe block by google', body)
                 break
@@ -94,7 +94,7 @@ def login():
     sb.type('#password', password)
     sb.click('button:contains("Submit")')
     sb.sleep(20)
-    sb.assert_exact_text('ACTIVE', '[class*="badge badge-success"]')
+    sb.assert_exact_text('ACTIVE', '[class*="badge badge-success"]', timeout=20)
     print('- login success')
     return True
 
@@ -124,7 +124,7 @@ def speech_to_text():
     while trySpeech <= 3:
         print('- trySpeech *', trySpeech)
         sb.open(urlSpeech)
-        sb.assert_text('Speech to text', 'h1')
+        sb.assert_text('Speech to text', 'h1', timeout=20)
         sb.choose_file('input[type="file"]', os.getcwd() + audioWAV)
         sb.sleep(5)
         response = sb.get_text('[id*="speechout"]')
@@ -180,7 +180,7 @@ def renew():
 def renew_check():
     global body
     print('- renew_check')
-    sb.assert_element('div#response')
+    sb.assert_element('div#response', timeout=20)
     print('- access')
     body = sb.get_text('div#response')
     i = 1
