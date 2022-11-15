@@ -9,12 +9,20 @@ def recaptcha():
     global body
     print('- recaptcha')
     try:
-        sb.open(urlLogin)
+        sb.open(urlLogin, timeout=30)
         sb.assert_text('Login', 'h2', timeout=20)
         print('- access')
     except Exception as e:
         print('👀 ', e, '\n try again!')
-        sb.open(urlLogin)
+        try:
+            print('login issue!')
+            screenshot()
+            sb.driver.close()
+            sb.switch_to_window(0)
+        except:
+            print('g!')
+            pass
+        sb.open(urlLogin, timeout=30)
         sb.assert_text('Login', 'h2', timeout=20)
         print('- access')
     #   reCAPTCHA
