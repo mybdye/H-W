@@ -46,7 +46,7 @@ def recaptcha():
         try:
             sb.assert_element('[href*="https://www.recaptcha.net/recaptcha/api2/payload/audio.mp3?"]', timeout=20)
             print('- normal')
-            src = sb.find_elements('[href*="https://www.recaptcha.net/recaptcha/api2/payload/audio.mp3?"]', timeout=20
+            src = sb.find_elements('[href*="https://www.recaptcha.net/recaptcha/api2/payload/audio.mp3?"]'
                                    )[0].get_attribute("href")
             print('- audio src:', src)
             # download audio file
