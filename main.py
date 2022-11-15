@@ -1,7 +1,7 @@
 # https://github.com/mybdye 🌟
 
 
-import os, requests, urllib, pydub, base64, ssl
+import os, requests, urllib, pydub, base64, ssl, random
 from seleniumbase import SB
 
 
@@ -134,7 +134,7 @@ def renew():
     print('- renew')
     sb.open(urlRenew)
     print('- access')
-    sb.sleep(2)
+    sb.sleep(random.randint(1,5))
     #
     print('- fill web_address')
     sb.type('#web_address', urlBase)
@@ -293,7 +293,7 @@ urlSpeech = url_decode(
 # 关闭证书验证
 ssl._create_default_https_context = ssl._create_unverified_context
 
-with SB(uc=True) as sb:  # By default, browser="chrome" if not set.
+with SB(uc=True, pls="none") as sb:  # By default, browser="chrome" if not set.
     print('- 🚀 loading...')
     if urlBase != '' and username != '' and password != '':
         try:
