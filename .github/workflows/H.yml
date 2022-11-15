@@ -16,7 +16,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     # 超时设置
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
     # 抛硬币，字向上才运行
 #      - id: Roll_the_dice
