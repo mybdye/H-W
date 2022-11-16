@@ -32,11 +32,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         
-      - name: Setup WARP
-        run: |
-          git clone -b main https://github.com/P3TERX/warp.sh ~/warp
-          cd ~/warp
-          sudo bash ./warp.sh wgd
+#       - name: Setup WARP
+#         run: |
+#           git clone -b main https://github.com/P3TERX/warp.sh ~/warp
+#           cd ~/warp
+#           sudo bash ./warp.sh wgd
           
       - name: Setup FFmpeg using versions
         uses: Iamshankhadeep/setup-ffmpeg@v1.2
