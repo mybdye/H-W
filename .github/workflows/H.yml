@@ -31,12 +31,21 @@ jobs:
     #
       - name: Checkout
         uses: actions/checkout@v3
+        
+      - name: Setup WARP
+        run: |
+          git clone -b main https://github.com/P3TERX/warp.sh ~/warp
+          cd ~/warp
+          sudo bash ./warp.sh 4
+          
       - name: Setup FFmpeg using versions
         uses: Iamshankhadeep/setup-ffmpeg@v1.2
+        
       - name: Setup Environment
         run: |
           pip install --upgrade pip
           pip install -r ./requirements.txt
+          
       - name: 'Renew'
         env:
           URL_BASE: ${{ secrets.URL_BASE_H }}
