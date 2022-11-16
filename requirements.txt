@@ -1,4 +1,4 @@
 seleniumbase
 pydub
 func_timeout
-Pillow pyscreenshot
+pyscreenshot
