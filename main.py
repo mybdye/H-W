@@ -31,7 +31,7 @@ def recaptcha():
         sb.assert_text('Login', 'h2', timeout=20)
         print('- access')
     #   reCAPTCHA
-    sb.switch_to_frame('[src*="https://www.recaptcha.net/recaptcha/api2/anchor?"]')
+    sb.switch_to_frame('[src*="/recaptcha/api2/anchor?"]')
     print('- switch to frame checkbox')
     checkbox = 'span#recaptcha-anchor'
     print('- click checkbox')
@@ -39,19 +39,19 @@ def recaptcha():
     sb.sleep(4)
     #   预防弹了广告
     sb.switch_to_window(0)
-    sb.switch_to_frame('[src*="https://www.recaptcha.net/recaptcha/api2/anchor?"]')
+    sb.switch_to_frame('[src*="/recaptcha/api2/anchor?"]')
     status = checkbox_status()
     tryReCAPTCHA = 1
     while status != 'true':
         sb.switch_to_default_content()  # Exit all iframes
         sb.sleep(1)
-        sb.switch_to_frame('[src*="https://www.recaptcha.net/recaptcha/api2/bframe?"]')
+        sb.switch_to_frame('[src*="/recaptcha/api2/bframe?"]')
         print('- switch to frame image/audio')
         sb.click("button#recaptcha-audio-button")
         try:
-            sb.assert_element('[href*="https://www.recaptcha.net/recaptcha/api2/payload/audio.mp3?"]', timeout=20)
+            sb.assert_element('[href*="/recaptcha/api2/payload/audio.mp3?"]', timeout=20)
             print('- normal')
-            src = sb.find_elements('[href*="https://www.recaptcha.net/recaptcha/api2/payload/audio.mp3?"]'
+            src = sb.find_elements('[href*="/recaptcha/api2/payload/audio.mp3?"]'
                                    )[0].get_attribute("href")
             print('- audio src:', src)
             # download audio file
@@ -62,12 +62,12 @@ def recaptcha():
             sb.assert_text('Login', 'h2', timeout=20)
             sb.switch_to_default_content()  # Exit all iframes
             sb.sleep(1)
-            sb.switch_to_frame('[src*="https://www.recaptcha.net/recaptcha/api2/bframe?"]')
+            sb.switch_to_frame('[src*="/recaptcha/api2/bframe?"]')
             sb.type('#audio-response', text)
             sb.click('button#recaptcha-verify-button')
             sb.sleep(4)
             sb.switch_to_default_content()  # Exit all iframes
-            sb.switch_to_frame('[src*="https://www.recaptcha.net/recaptcha/api2/anchor?"]')
+            sb.switch_to_frame('[src*="/recaptcha/api2/anchor?"]')
             sb.sleep(1)
             status = checkbox_status()
 
@@ -76,7 +76,7 @@ def recaptcha():
             body = e
             sb.switch_to_default_content()  # Exit all iframes
             sb.sleep(1)
-            sb.switch_to_frame('[src*="https://www.recaptcha.net/recaptcha/api2/bframe?"]')
+            sb.switch_to_frame('[src*="/recaptcha/api2/bframe?"]')
             msgBlock = '[class*="rc-doscaptcha-body-text"]'
             if sb.assert_element(msgBlock, timeout=20):
                 body = sb.get_text(msgBlock)
@@ -147,7 +147,6 @@ def renew():
     print('- renew')
     #sb.open(urlRenew)
     urlOpen(urlRenew)
-    #sb.click_link('Extend VPS', timeout=10)
     sb.sleep(10)
     #screenshot()
     #sb.switch_to_window(0)
@@ -223,7 +222,6 @@ def screenshot():
     sb.open('http://imgur.com/upload')
     # sb.choose_file('input[type="file"]', os.getcwd() + '/' + imgFile)
     sb.choose_file('input[type="file"]', "fullscreen.png")
-
     sb.sleep(6)
     imgUrl = sb.get_current_url()
     i = 1
@@ -310,7 +308,7 @@ body = ''
 statuRenew = False
 audioMP3 = '/' + urlBase + '.mp3'
 audioWAV = '/' + urlBase + '.wav'
-imgFile = urlBase + '.png'
+# imgFile = urlBase + '.png'
 ##
 urlLogin = 'https://' + urlBase + '/login'
 urlRenew = 'https://' + urlBase + '/vps-renew'
