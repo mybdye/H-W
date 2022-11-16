@@ -145,8 +145,10 @@ def renew():
     global statuRenew
     print('- renew')
     #sb.open(urlRenew)
-    sb.click_link('Extend VPS')
+    sb.click_link('Extend VPS', timeout=10)
     sb.sleep(10)
+    screenshot()
+    sb.switch_to_window(0)
     sb.assert_text('Renew VPS', 'h2', timeout=10)
     print('- access')
     sb.sleep(random.randint(1,3))
