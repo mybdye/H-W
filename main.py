@@ -146,10 +146,11 @@ def renew():
     global statuRenew
     print('- renew')
     #sb.open(urlRenew)
-    sb.click_link('Extend VPS', timeout=10)
+    urlOpen(urlRenew)
+    #sb.click_link('Extend VPS', timeout=10)
     sb.sleep(10)
-    screenshot()
-    sb.switch_to_window(0)
+    #screenshot()
+    #sb.switch_to_window(0)
     sb.assert_text('Renew VPS', 'h2', timeout=10)
     print('- access')
     sb.sleep(random.randint(1,3))
@@ -318,7 +319,7 @@ urlSpeech = url_decode(
 # 关闭证书验证
 ssl._create_default_https_context = ssl._create_unverified_context
 
-with SB(uc=True, extension_zip="uBlock_Origin_1_44_4_0.zip") as sb:  # By default, browser="chrome" if not set.
+with SB(uc=True) as sb:  # By default, browser="chrome" if not set.
     print('- 🚀 loading...')
     if urlBase != '' and username != '' and password != '':
         try:
