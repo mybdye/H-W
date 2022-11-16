@@ -1,5 +1,7 @@
 ## [![H](https://github.com/mybdye/H-W-SeleniumBase/actions/workflows/H.yml/badge.svg)](https://github.com/mybdye/H-W-SeleniumBase/actions/workflows/H.yml) [![W](https://github.com/mybdye/H-W-SeleniumBase/actions/workflows/W.yml/badge.svg)](https://github.com/mybdye/H-W-SeleniumBase/actions/workflows/W.yml)
 Project for SeleniumBase study.
+#### ⏱️ TODO
+- [ ] 概率卡在 sb.open() 导致超时
 
 #### ✏️ NOTE
 - 11.04 重新出发
