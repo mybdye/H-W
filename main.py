@@ -4,6 +4,7 @@
 import os, requests, urllib, pydub, base64, ssl, random
 from seleniumbase import SB
 from func_timeout import func_set_timeout, FunctionTimedOut
+import pyscreenshot as ImageGrab
 
 @func_set_timeout(60)
 def urlOpen(url):
@@ -209,12 +210,19 @@ def renew_check():
 def screenshot():
     global body
     print('- screenshot')
-    sb.save_screenshot(imgFile, folder=os.getcwd())
+    # grab fullscreen
+    im = ImageGrab.grab()
+    # save image file
+    im.save("fullscreen.png")
+    
+    #sb.save_screenshot(imgFile, folder=os.getcwd())
     print('- screenshot done')
     sb.open_new_window()
     print('- screenshot upload')
     sb.open('http://imgur.com/upload')
-    sb.choose_file('input[type="file"]', os.getcwd() + '/' + imgFile)
+    # sb.choose_file('input[type="file"]', os.getcwd() + '/' + imgFile)
+    sb.choose_file('input[type="file"]', "fullscreen.png")
+
     sb.sleep(6)
     imgUrl = sb.get_current_url()
     i = 1
