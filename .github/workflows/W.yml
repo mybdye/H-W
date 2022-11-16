@@ -18,25 +18,8 @@ jobs:
     # 超时设置
     timeout-minutes: 10
     steps:
-    # 抛硬币，字向上才运行
-#      - id: Roll_the_dice
-#        run: echo "PROCEED=$((RANDOM%2))" >> $GITHUB_ENV
-#        shell: bash
-#      - if: env.PROCEED == '0'
-#        name: Cancelling
-#        uses: andymckay/cancel-action@0.2
-#      - if: env.PROCEED == '0'
-#        name: Waiting for cancellation
-#        run: sleep 60
-    #
       - name: Checkout
         uses: actions/checkout@v3
-        
-#       - name: Setup WARP
-#         run: |
-#           git clone -b main https://github.com/P3TERX/warp.sh ~/warp
-#           cd ~/warp
-#           sudo bash ./warp.sh wgd
           
       - name: Setup FFmpeg using versions
         uses: Iamshankhadeep/setup-ffmpeg@v1.2
