@@ -317,7 +317,7 @@ urlSpeech = url_decode(
 # 关闭证书验证
 ssl._create_default_https_context = ssl._create_unverified_context
 
-with SB(uc=True, no_sandbox=True) as sb:  # By default, browser="chrome" if not set.
+with SB(uc=True) as sb:  # By default, browser="chrome" if not set.
     print('- 🚀 loading...')
     if urlBase != '' and username != '' and password != '':
         try:
@@ -325,7 +325,7 @@ with SB(uc=True, no_sandbox=True) as sb:  # By default, browser="chrome" if not 
                 if login():
                     i = 1
                     while not statuRenew:
-                        if i > 10:
+                        if i > 15:
                             break
                         renew()
                         i += 1
@@ -334,7 +334,7 @@ with SB(uc=True, no_sandbox=True) as sb:  # By default, browser="chrome" if not 
             try:
                 screenshot()
             finally:
-                push(e)
+                push(str(e))
         push(body)
     else:
         print('- please check urlBase/username/password')
