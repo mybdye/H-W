@@ -3,26 +3,30 @@
 
 import os, requests, urllib, pydub, base64, ssl, random
 from seleniumbase import SB
+from func_timeout import func_set_timeout, FunctionTimedOut
 
-
+@func_set_timeout(60)
+def urlOpen(url):
+    try:
+        print('- url open:', url)
+        sb.open(url)
+    except FunctionTimedOut as e:
+        print('- 👀 url open:', e)
+    print('- func url open finish')
+    
 def recaptcha():
     global body
     print('- recaptcha')
     try:
-        sb.open(urlLogin)
+        #sb.open(urlLogin)
+        urlOpen(urlLogin)
         sb.assert_text('Login', 'h2', timeout=20)
         print('- access')
     except Exception as e:
         print('👀 ', e, '\n try again!')
-        try:
-            print('login issue!')
-            screenshot()
-            sb.driver.close()
-            sb.switch_to_window(0)
-        except:
-            print('g!')
-            pass
-        sb.open(urlLogin)
+        sb.driver.close()
+        #sb.open(urlLogin)
+        urlOpen(urlLogin)
         sb.assert_text('Login', 'h2', timeout=20)
         print('- access')
     #   reCAPTCHA
@@ -140,9 +144,12 @@ def speech_to_text():
 def renew():
     global statuRenew
     print('- renew')
-    sb.open(urlRenew)
+    #sb.open(urlRenew)
+    sb.click('a[href="/vps-renew/"]')
+    sb.sleep(10)
+    sb.assert_text('Renew VPS', 'h2', timeout=10)
     print('- access')
-    sb.sleep(random.randint(1,5))
+    sb.sleep(random.randint(1,3))
     #
     print('- fill web_address')
     sb.type('#web_address', urlBase)
