@@ -44,6 +44,7 @@ jobs:
       - name: Setup Environment
         run: |
           pip install --upgrade pip
+          pip install Pillow pyscreenshot
           pip install -r ./requirements.txt
           
       - name: 'Renew'
