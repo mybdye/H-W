@@ -2,9 +2,12 @@
 Project for SeleniumBase study.
 
 #### ⏱️ TODO
-- [ ] 概率卡在 sb.open() 导致超时
+- None
 
 #### ✏️ NOTE
+- 11.17
+  - 修复 sb.open() 概率卡死
+  - 修复 bark push url编码问题
 - 11.16
   - renew 尝试次数 10 改到 15，全程 2~6 分钟
   - yml 配置超时 10 分钟自动取消 action
