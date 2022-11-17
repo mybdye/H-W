@@ -4,6 +4,7 @@
 import os, requests, urllib, pydub, base64, ssl, random
 from seleniumbase import SB
 from func_timeout import func_set_timeout, FunctionTimedOut
+from urllib.parse import quote
 import pyscreenshot as ImageGrab
 
 @func_set_timeout(60)
@@ -186,7 +187,7 @@ def renew():
     sb.sleep(random.randint(1,3))
     print('- click Renew VPS')
     sb.click('button:contains("Renew VPS")')
-    sb.sleep(5)
+    sb.sleep(8)
     statuRenew = renew_check()
 
 
@@ -256,7 +257,8 @@ def push(body):
         print('*** No BARK_KEY ***')
     else:
         barkurl = 'https://api.day.app/' + barkToken
-        title = urlBase
+        title = quote(urlBase, safe='')
+        body = quote(body, safe='')
         rq_bark = requests.get(url=f'{barkurl}/{title}/{body}?isArchive=1')
         if rq_bark.status_code == 200:
             print('- bark push Done!')
