@@ -205,7 +205,7 @@ def renew_check():
         sb.sleep(2)
         body = sb.get_text('div#response')
         i += 1
-    print('- response [After %d run(s)]:' % (countRenew, body))
+    print('- response [After %d run(s)]: %s' % (countRenew, body))
     if 'renew' in body:
         body = '[%s***][After %d run(s)]\n🎉 %s' % (username[:3], countRenew, body)
         return True
@@ -252,18 +252,7 @@ def url_decode(s):
 
 def push(body):
     print('- body: %s \n- waiting for push result' % body)
-    # bark push
-    if barkToken == '':
-        print('*** No BARK_KEY ***')
-    else:
-        barkurl = 'https://api.day.app/' + barkToken
-        title = quote(urlBase, safe='')
-        body = quote(body, safe='')
-        rq_bark = requests.get(url=f'{barkurl}/{title}/{body}?isArchive=1')
-        if rq_bark.status_code == 200:
-            print('- bark push Done!')
-        else:
-            print('*** bark push fail! ***', rq_bark.content.decode('utf-8'))
+    
     # tg push
     if tgBotToken == '' or tgUserID == '':
         print('*** No TG_BOT_TOKEN or TG_USER_ID ***')
@@ -277,7 +266,21 @@ def push(body):
             print('- tg push Done!')
         else:
             print('*** tg push fail! ***', rq_tg.content.decode('utf-8'))
-    print('- finish!')
+            
+    # bark push
+    if barkToken == '':
+        print('*** No BARK_KEY ***')
+    else:
+        barkurl = 'https://api.day.app/' + barkToken
+        title = quote(urlBase, safe='')
+        body = quote(body, safe='')
+        rq_bark = requests.get(url=f'{barkurl}/{title}/{body}?isArchive=1')
+        if rq_bark.status_code == 200:
+            print('- bark push Done!')
+        else:
+            print('*** bark push fail! ***', rq_bark.content.decode('utf-8'))
+    
+    print('- push finish!')
 
 
 ##
