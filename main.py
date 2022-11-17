@@ -80,7 +80,8 @@ def recaptcha():
             msgBlock = '[class*="rc-doscaptcha-body-text"]'
             if sb.assert_element(msgBlock, timeout=20):
                 body = sb.get_text(msgBlock)
-                print('- 💣 maybe block by google', body)
+                print('- 💣 maybe block by google\n', body)
+                body = '[%s***]\n💣 %s' % (username[:3], body)
                 break
             elif tryReCAPTCHA > 3:
                 break
@@ -147,12 +148,11 @@ def renew():
     print('- renew')
     #sb.open(urlRenew)
     urlOpen(urlRenew)
-    sb.sleep(10)
+    sb.sleep(2)
     #screenshot()
     #sb.switch_to_window(0)
     sb.assert_text('Renew VPS', 'h2', timeout=10)
     print('- access')
-    sb.sleep(random.randint(1,3))
     #
     print('- fill web_address')
     sb.type('#web_address', urlBase)
@@ -175,12 +175,15 @@ def renew():
     captcharesult = int(captcharesult)
     print('- captcharesult: %d %s %d = %d' % (number1, method, number2, captcharesult))
     #
+    sb.sleep(random.randint(1,3))
     print('- fill captcha')
     sb.type('#captcha', captcharesult)
     #
+    sb.sleep(random.randint(1,3))
     print('- check agreement')
     sb.click('[name*="agreement"]')
     #
+    sb.sleep(random.randint(1,3))
     print('- click Renew VPS')
     sb.click('button:contains("Renew VPS")')
     sb.sleep(5)
@@ -188,7 +191,7 @@ def renew():
 
 
 def renew_check():
-    global body
+    global body, countRenew
     print('- renew_check')
     sb.assert_element('div#response', timeout=20)
     print('- access')
@@ -203,8 +206,11 @@ def renew_check():
         i += 1
     print('- response:', body)
     if 'renew' in body:
-        body = '[%s***] 🎉 %s' % (username[:3], body)
+        body = '[%s***][After %d run(s)]\n🎉 %s' % (username[:3], countRenew, body)
         return True
+    else:
+        body = '[%s***][After %d run(s)]\n💣 %s' % (username[:3], countRenew, body)
+
 
 
 def screenshot():
@@ -306,6 +312,7 @@ except:
 ##
 body = ''
 statuRenew = False
+countRenew = 1
 audioMP3 = '/' + urlBase + '.mp3'
 audioWAV = '/' + urlBase + '.wav'
 # imgFile = urlBase + '.png'
@@ -323,12 +330,12 @@ with SB(uc=True, pls="none", sjw=True) as sb:  # By default, browser="chrome" if
         try:
             if recaptcha():
                 if login():
-                    i = 1
                     while not statuRenew:
-                        if i > 15:
+                        global countRenew
+                        if countRenew > 15:
                             break
                         renew()
-                        i += 1
+                        countRenew += 1
         except Exception as e:
             print('💥', e)
             try:
