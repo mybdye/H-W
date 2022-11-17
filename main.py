@@ -331,7 +331,6 @@ with SB(uc=True, pls="none", sjw=True) as sb:  # By default, browser="chrome" if
             if recaptcha():
                 if login():
                     while not statuRenew:
-                        global countRenew
                         if countRenew > 15:
                             break
                         renew()
