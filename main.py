@@ -204,7 +204,7 @@ def renew_check():
         sb.sleep(2)
         body = sb.get_text('div#response')
         i += 1
-    print('- response:', body)
+    print('- response [After %d run(s)]:', countRenew, body)
     if 'renew' in body:
         body = '[%s***][After %d run(s)]\n🎉 %s' % (username[:3], countRenew, body)
         return True
