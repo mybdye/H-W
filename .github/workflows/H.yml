@@ -25,7 +25,7 @@ jobs:
         run: |
           git clone -b main https://github.com/P3TERX/warp.sh ~/warp
           cd ~/warp
-          sudo bash ./warp.sh wgd
+          sudo bash ./warp.sh wg4
 
       - name: Setup FFmpeg using versions
         uses: Iamshankhadeep/setup-ffmpeg@v1.2
