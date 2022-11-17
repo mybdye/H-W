@@ -36,7 +36,8 @@ def recaptcha():
     print('- switch to frame checkbox')
     checkbox = 'span#recaptcha-anchor'
     print('- click checkbox')
-    sb.click(checkbox)
+    sb.sleep(random.randint(3,6))
+    sb.click(checkbox, timeout=10)
     sb.sleep(4)
     #   预防弹了广告
     sb.switch_to_window(0)
