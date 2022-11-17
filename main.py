@@ -258,10 +258,10 @@ def push(body):
     if tgBotToken == '' or tgUserID == '':
         print('*** No TG_BOT_TOKEN or TG_USER_ID ***')
     else:
-        body = urlBase + '\n\n' + body
+        tgbody = urlBase + '\n\n' + body
         server = 'https://api.telegram.org'
         tgurl = server + '/bot' + tgBotToken + '/sendMessage'
-        rq_tg = requests.post(tgurl, data={'chat_id': tgUserID, 'text': body}, headers={
+        rq_tg = requests.post(tgurl, data={'chat_id': tgUserID, 'text': tgbody}, headers={
             'Content-Type': 'application/x-www-form-urlencoded'})
         if rq_tg.status_code == 200:
             print('- tg push Done!')
@@ -273,9 +273,9 @@ def push(body):
         print('*** No BARK_KEY ***')
     else:
         barkurl = 'https://api.day.app/' + barkToken
-        title = quote(urlBase, safe='')
-        body = quote(body, safe='')
-        rq_bark = requests.get(url=f'{barkurl}/{title}/{body}?isArchive=1')
+        barktitle = quote(urlBase, safe='')
+        barkbody = quote(body, safe='')
+        rq_bark = requests.get(url=f'{barkurl}/{barktitle}/{barkbody}?isArchive=1')
         if rq_bark.status_code == 200:
             print('- bark push Done!')
         else:
