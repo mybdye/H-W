@@ -134,13 +134,16 @@ def speech_to_text():
         sb.open(urlSpeech)
         sb.assert_text('Speech to text', 'h1', timeout=20)
         sb.choose_file('input[type="file"]', os.getcwd() + audioWAV)
-        sb.sleep(5)
+        sb.sleep(8)
         response = sb.get_text('[id*="speechout"]')
         print('- response:', response)
-        text = response.split('-' * 80)[1].split('\n')[1].replace('. ', '.')
-        print('- text:', text)
-        if ' ' in text:
-            break
+        try:
+            text = response.split('-' * 80)[1].split('\n')[1].replace('. ', '.')
+            print('- text:', text)
+            if ' ' in text:
+                break
+        except Exception as e:
+            print('💥 speech2text:', e)
         trySpeech += 1
     return text
 
