@@ -7,14 +7,26 @@ from func_timeout import func_set_timeout, FunctionTimedOut
 from urllib.parse import quote
 import pyscreenshot as ImageGrab
 
-@func_set_timeout(60)
+@func_set_timeout(30)
 def urlOpen(url):
     try:
         print('- url open:', url)
         sb.open(url)
+        print('- func url open finish')
     except FunctionTimedOut as e:
         print('- 👀 url open:', e)
-    print('- func url open finish')
+   
+
+def checkbox():
+    print('- click checkbox')
+    checkbox = 'span#recaptcha-anchor'
+    try:
+        sb.wait_for_element(checkbox)
+        sb.click(checkbox)
+        sb.sleep(4)
+    except FunctionTimedOut as e:
+        print('- 👀 checkbox:', e)
+    
     
 def recaptcha():
     global body
@@ -34,11 +46,7 @@ def recaptcha():
     #   reCAPTCHA
     sb.switch_to_frame('[src*="/recaptcha/api2/anchor?"]')
     print('- switch to frame checkbox')
-    checkbox = 'span#recaptcha-anchor'
-    sb.sleep(random.randint(3,6))
-    print('- click checkbox')
-    sb.click(checkbox, timeout=10)
-    sb.sleep(4)
+    checkbox()
     try:
         #   预防弹了广告
         sb.switch_to_window(0)
@@ -336,7 +344,7 @@ urlSpeech = url_decode(
 # 关闭证书验证
 ssl._create_default_https_context = ssl._create_unverified_context
 
-with SB(uc=True, pls="none", sjw=True) as sb:  # By default, browser="chrome" if not set.
+with SB(uc=True, pls="none", sjw=True, mobile=True) as sb:  # By default, browser="chrome" if not set.
     print('- 🚀 loading...')
     if urlBase != '' and username != '' and password != '':
         try:
