@@ -143,9 +143,9 @@ def speech_to_text():
     while trySpeech <= 3:
         print('- trySpeech *', trySpeech)
         sb.open(urlSpeech)
-        sb.assert_text('Speech to text', 'h1', timeout=20)
+        sb.assert_text('Speech to text', 'h1', timeout=10)
         sb.choose_file('input[type="file"]', os.getcwd() + audioWAV)
-        sb.sleep(8)
+        sb.sleep(12)
         response = sb.get_text('[id*="speechout"]')
         print('- response:', response)
         try:
