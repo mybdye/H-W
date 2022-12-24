@@ -68,6 +68,9 @@ def recaptcha():
             urllib.request.urlretrieve(src, os.getcwd() + audioMP3)
             mp3_to_wav()
             text = speech_to_text()
+            if text == '':
+                screenshot()
+                break
             sb.switch_to_window(0)
             sb.assert_text('Login', 'h2', timeout=20)
             sb.switch_to_default_content()  # Exit all iframes
