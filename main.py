@@ -171,7 +171,10 @@ def renew():
     print('- access')
     #
     print('- fill web_address')
-    sb.type('#web_address', urlBase)
+    web_address = '#web_address'
+    sb.wait_for_element(web_address, timeout=20)
+    sb.type(web_address, urlBase)
+    print('- fill web_address done')
     #   captcha
     number1 = int(sb.find_elements('img[src]')[0].get_attribute('src').split('-')[1][0])
     number2 = int(sb.find_elements('img[src]')[1].get_attribute('src').split('-')[1][0])
